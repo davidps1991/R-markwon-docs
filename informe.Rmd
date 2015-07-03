@@ -49,7 +49,10 @@ datatable(data)
 Ajustando un modelo de regresión para las variables `r names(data)[1]` y `r names(data)[2]` utilizando
 la función `lm()` obtenemos el siguiente resultado:
 
-```{r,echo=TRUE,eval=TRUE}
+
+```{r,echo=FALSE,eval=TRUE}
+#El parametro "echo=TRUE//FALSE" permite que se muestre las lineas de codigo
+#El parametro "eval=TRUE/FALSE" permite que se ejecute el codigo
 reg <- lm(Utilidad~Ventas, data)
 summary(reg)
 ```
@@ -87,6 +90,14 @@ $H_0: \beta_2=0$.
 ```{r}
 confint(reg,level = 0.95)
 ```
+
+###Prueba de Hipotesis para $\beta_2$
+Como para este caso tenemos que $t_j=`r summary(reg)[["coefficients"]][2,3]`$ es `r aux<-"mayor";if(summary(reg)[["coefficients"]][2,3]<qt(0.975,nrow(data)-2)) aux<-"menor" ;aux ;` que $t_{`r nrow(data)-2`}(\frac{\alpha}{2})=`r qt(0.975,nrow(data)-2) `$  recahzo $H_0:\beta_2=0$
+
+###Intervalos de Confienza para $\beta_2$
+Tenemos que el intervalo de confianza para $\beta_2$ es:
+$$`r int=confint(reg,level = 0.95);int[2,1]`\leq \beta_2 \leq`r int[2,2]` $$
+
 
 ### Gráficos residuales
 ```{r}
